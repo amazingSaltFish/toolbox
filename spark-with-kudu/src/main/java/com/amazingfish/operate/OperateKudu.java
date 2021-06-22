@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.apache.kudu.client.CreateTableOptions;
 import org.apache.kudu.client.KuduException;
-import org.apache.kudu.client.ListTablesResponse;
 import org.apache.kudu.spark.kudu.KuduContext;
 import org.apache.kudu.spark.kudu.KuduWriteOptions;
 import org.apache.spark.sql.Dataset;
@@ -25,11 +24,11 @@ import java.util.List;
  * kudu表的相关操作
  */
 @Slf4j
-public class Operate {
+public class OperateKudu {
     private final SparkSession sparkSession;
     private final KuduContext kuduContext;
     private final String kuduMaster;
-    private final static Logger logger = LoggerFactory.getLogger(Operate.class);
+    private final static Logger logger = LoggerFactory.getLogger(OperateKudu.class);
 
     /**
      * 构造kudu的函数
@@ -37,7 +36,7 @@ public class Operate {
      * @param sparkSession spark的活动会话
      * @param kuduMaster kudu的主节点连接
      */
-    public Operate(SparkSession sparkSession, String kuduMaster) {
+    public OperateKudu(SparkSession sparkSession, String kuduMaster) {
         this.sparkSession = sparkSession;
         this.kuduMaster = kuduMaster;
         this.kuduContext = new KuduContext(kuduMaster, sparkSession.sparkContext());
@@ -150,9 +149,11 @@ public class Operate {
     public void copyKuduTable(Dataset<Row> df, String tableName, List<String> primaryKeyList, CreateTableOptions createTableOptions, KuduWriteOptions writeOptions) {
         if (ifExistKuduTable(tableName)) {
             logger.warn("table {} already exists!!! please check tableName", tableName);
+        }else{
+            logger.warn("start create kudu table: {}", tableName);
             createKuduTable(tableName, df.schema(), primaryKeyList, createTableOptions);
-            appendKuduTable(df, tableName, writeOptions);
         }
+        appendKuduTable(df, tableName, writeOptions);
     }
 
     public List<String> listTable() {
