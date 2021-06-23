@@ -24,11 +24,11 @@ import java.util.List;
  * kudu表的相关操作
  */
 @Slf4j
-public class OperateKudu {
+public class BaseKuduOperate {
     private final SparkSession sparkSession;
     private final KuduContext kuduContext;
     private final String kuduMaster;
-    private final static Logger logger = LoggerFactory.getLogger(OperateKudu.class);
+    private final static Logger logger = LoggerFactory.getLogger(BaseKuduOperate.class);
 
     /**
      * 构造kudu的函数
@@ -36,7 +36,7 @@ public class OperateKudu {
      * @param sparkSession spark的活动会话
      * @param kuduMaster kudu的主节点连接
      */
-    public OperateKudu(SparkSession sparkSession, String kuduMaster) {
+    public BaseKuduOperate(SparkSession sparkSession, String kuduMaster) {
         this.sparkSession = sparkSession;
         this.kuduMaster = kuduMaster;
         this.kuduContext = new KuduContext(kuduMaster, sparkSession.sparkContext());
@@ -124,37 +124,7 @@ public class OperateKudu {
         kuduContext.createTable(tableName, schema, primaryKeys, createTableOptions);
     }
 
-    /**
-     * 创建默认副本的表
-     *
-     * @param tableName      目标表名
-     * @param schema         表结构信息
-     * @param primarykeyList 主键列表
-     */
-    public void creaetKuduTableDefaultThreeReplication(String tableName, StructType schema, List<String> primarykeyList) {
-        CreateTableOptions createTableOptions = new CreateTableOptions();
-        createTableOptions.setNumReplicas(3);
-        createTableOptions.setRangePartitionColumns(primarykeyList);
-        createKuduTable(tableName, schema, primarykeyList, createTableOptions);
-        logger.info("kudu table: {} have been created!", tableName);
-    }
 
-    /**
-     * @param df                 复制数据集
-     * @param tableName          表名
-     * @param primaryKeyList     主键列
-     * @param createTableOptions 表创建参数
-     * @param writeOptions       表写入参数
-     */
-    public void copyKuduTable(Dataset<Row> df, String tableName, List<String> primaryKeyList, CreateTableOptions createTableOptions, KuduWriteOptions writeOptions) {
-        if (ifExistKuduTable(tableName)) {
-            logger.warn("table {} already exists!!! please check tableName", tableName);
-        }else{
-            logger.warn("start create kudu table: {}", tableName);
-            createKuduTable(tableName, df.schema(), primaryKeyList, createTableOptions);
-        }
-        appendKuduTable(df, tableName, writeOptions);
-    }
 
     public List<String> listTable() {
         List<String> tableList = null;

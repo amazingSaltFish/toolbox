@@ -1,7 +1,7 @@
 package com.amazingfish;
 
 import com.amazingfish.config.Configs;
-import com.amazingfish.operate.OperateKudu;
+import com.amazingfish.operate.BaseKuduOperate;
 import org.apache.spark.SparkConf;
 import org.apache.spark.sql.SparkSession;
 
@@ -17,7 +17,7 @@ public class
             sparkConf.setMaster("local");
         }
         SparkSession sparkSession = SparkSession.builder().config(sparkConf).getOrCreate();
-        OperateKudu operate = new OperateKudu(sparkSession, Configs.KUDU_MASTER);
+        BaseKuduOperate operate = new BaseKuduOperate(sparkSession, Configs.KUDU_MASTER);
         operate.listTable().forEach(System.out::println);
         sparkSession.close();
     }
