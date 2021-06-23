@@ -61,4 +61,5 @@ public class ComplexKuduOperate extends BaseKuduOperate {
         createKuduTable(tableName, schema, primarykeyList, createTableOptions);
         logger.info("kudu table: {} have been created!", tableName);
     }
+    苏打水开房间代理费及时丢
 }
