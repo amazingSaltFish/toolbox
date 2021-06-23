@@ -54,12 +54,11 @@ public class ComplexKuduOperate extends BaseKuduOperate {
      * @param schema         表结构信息
      * @param primarykeyList 主键列表
      */
-    public void creaetKuduTableDefaultThreeReplication(String tableName, StructType schema, List<String> primarykeyList) {
+    public void createKuduTableDefaultThreeReplication(String tableName, StructType schema, List<String> primarykeyList) {
         CreateTableOptions createTableOptions = new CreateTableOptions();
         createTableOptions.setNumReplicas(3);
         createTableOptions.setRangePartitionColumns(primarykeyList);
         createKuduTable(tableName, schema, primarykeyList, createTableOptions);
         logger.info("kudu table: {} have been created!", tableName);
     }
-    苏打水开房间代理费及时丢
 }
