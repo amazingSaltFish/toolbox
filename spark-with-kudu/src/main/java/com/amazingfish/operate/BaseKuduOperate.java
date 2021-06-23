@@ -2,7 +2,9 @@ package com.amazingfish.operate;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.apache.kudu.client.AlterTableOptions;
 import org.apache.kudu.client.CreateTableOptions;
+import org.apache.kudu.client.KuduClient;
 import org.apache.kudu.client.KuduException;
 import org.apache.kudu.spark.kudu.KuduContext;
 import org.apache.kudu.spark.kudu.KuduWriteOptions;
@@ -34,7 +36,7 @@ public class BaseKuduOperate {
      * 构造kudu的函数
      *
      * @param sparkSession spark的活动会话
-     * @param kuduMaster kudu的主节点连接
+     * @param kuduMaster   kudu的主节点连接
      */
     public BaseKuduOperate(SparkSession sparkSession, String kuduMaster) {
         this.sparkSession = sparkSession;
@@ -125,7 +127,6 @@ public class BaseKuduOperate {
     }
 
 
-
     public List<String> listTable() {
         List<String> tableList = null;
         try {
@@ -135,4 +136,21 @@ public class BaseKuduOperate {
         }
         return tableList;
     }
+
+    /**
+     * 修改kudu的表名
+     *
+     * @param tableName 需要修改的表
+     * @param newName 新表名
+     * @param kuduClient kuduClient
+     */
+    public void renameTable(String tableName, String newName, KuduClient kuduClient) {
+        AlterTableOptions alterTableOptions = new AlterTableOptions().renameTable(newName);
+        try {
+            kuduClient.alterTable(tableName, alterTableOptions);
+        } catch (KuduException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
