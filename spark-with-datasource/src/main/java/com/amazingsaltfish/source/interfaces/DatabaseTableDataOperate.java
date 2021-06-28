@@ -22,6 +22,7 @@ public interface DatabaseTableDataOperate {
      * 删除表数据
      * @param dataset 待删除数据集
      * @param tableName 表名
+     * @param params 其它参数
      */
     void deleteData(Dataset<Row> dataset, String tableName, HashMap<String,Object> params);
     /**
@@ -35,6 +36,7 @@ public interface DatabaseTableDataOperate {
      * 更新表
      * @param dataset 待更新的数据集
      * @param tableName 更新的表名
+     * @param params 其它参数
      */
     void updateData(Dataset<Row> dataset, String tableName, HashMap<String,Object> params);
 

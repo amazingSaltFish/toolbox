@@ -124,6 +124,7 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spark.version>2.4.0</spark.version>
         <kudu.version>1.14.0</kudu.version>
         <kudu-spark.version>1.13.0</kudu-spark.version>
