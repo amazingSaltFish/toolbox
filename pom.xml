@@ -9,7 +9,7 @@
     <version>1.0.0</version>
     <packaging>pom</packaging>
     <modules>
-        <module>spark-with-kudu</module>
+        <module>spark-with-datasource</module>
     </modules>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

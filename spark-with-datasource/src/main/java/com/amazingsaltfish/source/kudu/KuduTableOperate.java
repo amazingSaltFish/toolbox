@@ -30,6 +30,7 @@ public class KuduTableOperate extends KuduBaseOperate implements DatabaseTableOp
     private final static String CREATE_OPTIONS = "create.options";
 
     public KuduTableOperate(SparkSession sparkSession, String kuduMaster) {
+        super(sparkSession,kuduMaster);
         this.kuduContext = new KuduContext(kuduMaster, sparkSession.sparkContext());
     }
 
