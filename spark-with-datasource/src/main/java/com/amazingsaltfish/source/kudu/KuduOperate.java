@@ -22,8 +22,10 @@ public class KuduOperate extends KuduBaseOperate implements DatabaseTableOperate
     private DatabaseTableDataOperate databaseTableDataOperate;
     private TableColumnOperate tableColumnOperate;
     private DatabaseTableOperate databaseTableOperate;
+    private KuduBaseOperate kuduBaseOperate;
 
     public KuduOperate(SparkSession sparkSession, String kuduMaster) {
+        this.kuduBaseOperate = new KuduBaseOperate(sparkSession, kuduMaster);
         this.tableColumnOperate = new KuduAlterColumnOperate(sparkSession, kuduMaster);
         this.databaseTableOperate = new KuduTableOperate(sparkSession, kuduMaster);
         this.databaseTableDataOperate = new KuduTableDataOperate(sparkSession, kuduMaster);
@@ -97,5 +99,17 @@ public class KuduOperate extends KuduBaseOperate implements DatabaseTableOperate
     @Override
     public void updateData(Dataset<Row> dataset, String tableName, HashMap<String, Object> params) {
         databaseTableDataOperate.updateData(dataset, tableName, params);
+    }
+
+
+
+    @Override
+    public Dataset<Row> loadTable(String tableName) {
+        return kuduBaseOperate.loadTable(tableName);
+    }
+
+    @Override
+    public void saveTable(Dataset<Row> dataset, String tableName) {
+        kuduBaseOperate.saveTable(dataset, tableName);
     }
 }

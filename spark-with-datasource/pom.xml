@@ -6,7 +6,7 @@
 
     <groupId>io.github.amazingSaltFish</groupId>
     <artifactId>spark-with-datasource</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.2</version>
     <name>spark-with-datasource</name>
     <url>https://github.com/amazingSaltFish/toolbox</url>
     <description>toolbox</description>
