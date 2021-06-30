@@ -1,4 +1,4 @@
-package com.amazingfish.utils.time;
+package com.amazingsaltfish.utils.time;
 
 public class TimeUtil {
 

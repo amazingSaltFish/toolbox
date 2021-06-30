@@ -1,4 +1,4 @@
-package com.amazingfish.utils.json;
+package com.amazingsaltfish.utils.json;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;

@@ -1,4 +1,4 @@
-package com.amazingfish.utils.date;
+package com.amazingsaltfish.utils.date;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.util.TextUtils;

@@ -1,4 +1,4 @@
-package com.amazingfish.utils.json;
+package com.amazingsaltfish.utils.json;
 
 import com.alibaba.fastjson.*;
 import com.alibaba.fastjson.serializer.PropertyFilter;
